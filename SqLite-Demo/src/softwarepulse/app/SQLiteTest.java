@@ -22,7 +22,8 @@ public class SQLiteTest {
 public static Connection getConnection() throws ClassNotFoundException, SQLException
 	{
 		Class.forName("org.sqlite.JDBC");
-		con=DriverManager.getConnection("jdbc:sqlite:SQLiteTest1.db");
+		con=DriverManager.getConnection("jdbc:sqlite::resource:softwarepulse/app/SQLiteTest1.db");
+		//jdbc:sqlite::resource:package/test.sqlite
 		initialise();
 		return con;
 	}

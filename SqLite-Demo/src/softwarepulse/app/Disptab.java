@@ -55,7 +55,7 @@ public class Disptab extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("MEDICAL STORE DATA");
+		JLabel lblNewLabel = new JLabel("WIP");
 		lblNewLabel.setBounds(474, 35, 446, 47);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 40));
 		contentPane.add(lblNewLabel);
