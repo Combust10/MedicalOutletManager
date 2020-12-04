@@ -1,4 +1,5 @@
-	import java.sql.Connection;
+package MedOut;
+import java.sql.Connection;
 	import java.sql.DriverManager;
 	import java.sql.PreparedStatement;
 	import java.sql.ResultSet;
@@ -10,14 +11,6 @@ public class SQLite {
 
 		static Connection con;
 		private static boolean hasData = false;
-		public ResultSet displayUsers() throws SQLException, ClassNotFoundException
-		 {
-			 if (con==null)
-				 getConnection();
-			 Statement state=con.createStatement();
-			 ResultSet res=state.executeQuery("SELECT fname,lname FROM user");
-			 return res;
-		 }
 	public static Connection getConnection() throws ClassNotFoundException, SQLException
 		{
 			Class.forName("org.sqlite.JDBC");
@@ -28,18 +21,16 @@ public class SQLite {
 		static void initialise() throws SQLException {
 			if(!hasData)
 				hasData=true;
-			Statement state=con.createStatement();
-			ResultSet res=state.executeQuery("SELECT name FROM sqlite_master WHERE type='table' AND name='user'");
-			if(!res.next())
-			{
-				state.execute("CREATE  TABLE user(id integer,"+"fName varchar(60),"+"lName varchar(60),"+"primary key(id));");
-				state.execute("CREATE  TABLE login(id integer,"+"username varchar(60),"+"password varchar(60));");
+				Statement state=con.createStatement();
+				state.execute("CREATE TABLE IF NOT EXISTS login(id integer,"+"username varchar(60),"+"password varchar(60));");
+				state.execute("CREATE TABLE IF NOT EXISTS stock(id integer,"+"medname varchar(60),"+"q integer);");
+				state.execute("CREATE TABLE IF NOT EXISTS sales(id integer,"+"accname varchar(60),"+"medname varchar(60),"+"q integer);");
+				state.execute("CREATE TABLE IF NOT EXISTS company(id integer,"+"compname varchar(60),"+"compdets varchar(200));");
 				PreparedStatement prep4=con.prepareStatement("INSERT INTO login values(?,?,?);");
 				prep4.setString(2, "admin");
 				prep4.setString(3, "password");
 				prep4.execute();
-			}
-
+				con.close();
 		}
 	}
 
