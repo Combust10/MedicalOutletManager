@@ -14,7 +14,7 @@ public class SQLite {
 	public static Connection getConnection() throws ClassNotFoundException, SQLException
 		{
 			Class.forName("org.sqlite.JDBC");
-			con=DriverManager.getConnection("jdbc:sqlite:Database.db");
+			con=DriverManager.getConnection("jdbc:sqlite::resource:MedOut/Database.db");
 			initialise();
 			return con;
 		}
@@ -29,6 +29,9 @@ public class SQLite {
 				PreparedStatement prep4=con.prepareStatement("INSERT INTO login values(?,?,?);");
 				prep4.setString(2, "admin");
 				prep4.setString(3, "password");
+				prep4.execute();
+				prep4.setString(2, "test1");
+				prep4.setString(3, "pass");
 				prep4.execute();
 				con.close();
 		}
