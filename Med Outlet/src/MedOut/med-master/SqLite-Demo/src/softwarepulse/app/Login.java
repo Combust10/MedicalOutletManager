@@ -1,4 +1,5 @@
-package MedOut;
+package softwarepulse.app;
+
 import java.awt.BorderLayout;
 import java.sql.*;
 import java.awt.EventQueue;
@@ -31,6 +32,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JFrame f;
 
 	/**
 	 * Launch the application.
@@ -58,11 +60,10 @@ public class Login extends JFrame {
 	String usern;
 	String passw;
 	private final JLabel lblNewLabel_3 = new JLabel("New label");
-	public Login(int a) {}
 	public Login() throws ClassNotFoundException, SQLException {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/MedOut/check.png")));
 		setForeground(Color.WHITE);
-		logcon=DriverManager.getConnection("jdbc:sqlite:Database.db");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/softwarepulse/app/check.png")));
+		logcon=SQLiteTest.getConnection();
 		PreparedStatement prep=logcon.prepareStatement("SELECT username FROM login");
 		ResultSet r=prep.executeQuery();
 		usern=r.getString("username");
@@ -110,15 +111,20 @@ public class Login extends JFrame {
 		
 		JButton btnNewButton = new JButton("Enter");
 		btnNewButton.setBounds(246, 229, 113, 33);
+		btnNewButton.setIcon(new ImageIcon(Login.class.getResource("/softwarepulse/app/check.png")));
 		panel.add(btnNewButton);
-		lblNewLabel_3.setIcon(new ImageIcon(Login.class.getResource("/MedOut/3d-perspective-style-diamond-shape-white-background_1017-27557.jpg")));
 		lblNewLabel_3.setBounds(0, -65, 610, 426);
 		panel.add(lblNewLabel_3);
+		lblNewLabel_3.setIcon(new ImageIcon(Login.class.getResource("/softwarepulse/app/3d-perspective-style-diamond-shape-white-background_1017-27556.jpg")));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if((textField.getText().equals(usern))&&(textField_1.getText().equals(passw)))
 				{
-						System.out.println("hello");
+					f=new JFrame();
+					JOptionPane.showConfirmDialog(f,"Logged In","Success",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,new ImageIcon(Login.class.getResource("/softwarepulse/app/check.png"))); 
+					Disptab ob1=new Disptab();
+						System.out.println("hi");
+						ob1.main(null);
 					}
 					
 					

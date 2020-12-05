@@ -6,8 +6,9 @@ public class App {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
+		SQLite test=new SQLite();
 	    try {
-	    	SQLite.getConnection();
+	    	test.getConnection();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -15,7 +16,8 @@ public class App {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Login.main(args);
+	    Login ob=new Login(45);
+		ob.main(args);
 	 
 	}
 

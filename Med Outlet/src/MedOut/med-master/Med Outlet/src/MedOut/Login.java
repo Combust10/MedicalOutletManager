@@ -31,6 +31,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JFrame f;
 
 	/**
 	 * Launch the application.
@@ -118,7 +119,8 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if((textField.getText().equals(usern))&&(textField_1.getText().equals(passw)))
 				{
-						System.out.println("hello");
+					f=new JFrame(); 
+						System.out.println("hi");
 					}
 					
 					
