@@ -46,6 +46,7 @@ public class Main extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/MedOut/drug_shop-512.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 696, 458);
+
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.RED);
@@ -163,15 +164,20 @@ public class Main extends JFrame {
 		lblNewLabel_5.setForeground(Color.WHITE);
 		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 20));
 		Logout.add(lblNewLabel_5);
-		
-		
+		InventoryPanel ip=new InventoryPanel();
+		CompanyPanel cp=new CompanyPanel();
+		SalesPanel sp=new SalesPanel();
+		UsersPanel up=new UsersPanel();
 		
 		SalesOpt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SalesPanel sp=new SalesPanel();
+				
 				contentPane.add(sp, BorderLayout.CENTER);
 				sp.setVisible(false);
+				ip.setVisible(false);
+				cp.setVisible(false);
+				up.setVisible(false);
 				sp.setVisible(true);
 			}
 			@Override
@@ -186,6 +192,13 @@ public class Main extends JFrame {
 		InventoryOpt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				contentPane.add(ip,BorderLayout.CENTER);
+				cp.setVisible(false);
+				sp.setVisible(false);
+				up.setVisible(false);
+				ip.setVisible(false);
+				ip.setVisible(true);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -199,6 +212,12 @@ public class Main extends JFrame {
 		UsersOpt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				contentPane.add(up,BorderLayout.CENTER);
+				cp.setVisible(false);
+				sp.setVisible(false);
+				ip.setVisible(false);
+				up.setVisible(false);
+				up.setVisible(true);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -238,6 +257,13 @@ public class Main extends JFrame {
 		CompanyOpt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+
+				contentPane.add(cp,BorderLayout.CENTER);
+				ip.setVisible(false);
+				up.setVisible(false);
+				sp.setVisible(false);
+				cp.setVisible(false);
+				cp.setVisible(true);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
