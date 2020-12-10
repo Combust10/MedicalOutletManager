@@ -2,17 +2,20 @@ package MedOut;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import java.awt.GridLayout;
 import java.awt.Font;
-import java.awt.SystemColor;
+import javax.swing.SwingConstants;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -40,178 +43,211 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/MedOut/drug_shop-512.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 839, 507);
+		setBounds(100, 100, 696, 458);
+		
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Color.RED);
+		contentPane.setBorder(null);
+		contentPane.setLayout(new BorderLayout(0, 2));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JPanel panel_1 = new JPanel();
-	
-		panel_1.setBackground(Color.LIGHT_GRAY);
-		panel_1.setBounds(0, 175, 302, 47);
-		contentPane.add(panel_1);
-		panel_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				panel_1.setBackground(Color.DARK_GRAY);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				panel_1.setBackground(Color.LIGHT_GRAY);
-			}
-		});
-		
-		JLabel lblNewLabel_1 = new JLabel("SALES");
-		lblNewLabel_1.setIcon(new ImageIcon(Main.class.getResource("/MedOut/Drug-basket-icon.png")));
-		lblNewLabel_1.setForeground(Color.DARK_GRAY);
-		lblNewLabel_1.setBackground(new Color(240, 240, 240));
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 30));
-		panel_1.add(lblNewLabel_1);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.GRAY);
-		panel.setBounds(0, 11, 302, 458);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		panel.setBackground(Color.WHITE);
+		panel.setPreferredSize(new Dimension(50,120));
+		contentPane.add(panel, BorderLayout.NORTH);
+		panel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("");
-		//lblNewLabel.setIcon(new ImageIcon(Main.class.getResource("/MedOut/drug_shop-512.png")));
-		lblNewLabel.setIcon(new ImageIcon(new ImageIcon(Main.class.getResource("/MedOut/drug_shop-512.png")).getImage().getScaledInstance(120, 120, Image.SCALE_DEFAULT)));
-		lblNewLabel.setBounds(88, 11, 120, 154);
-		panel.add(lblNewLabel);
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(Color.WHITE);
+		panel_2.setPreferredSize(new Dimension(200,50));
+		panel.add(panel_2, BorderLayout.WEST);
 		
-		JPanel panel_1_1 = new JPanel();
-		panel_1_1.setBackground(Color.LIGHT_GRAY);
-		panel_1_1.setBounds(0, 211, 302, 47);
-		panel.add(panel_1_1);
+		JLabel Medlogo = new JLabel("");
+		Medlogo.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_2.add(Medlogo);
+		Medlogo.setBounds(0,0,200,200);
+		//Medlogo.setIcon(new ImageIcon(Main.class.getResource("/MedOut/drug_shop-512.png")));
+		Medlogo.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/MedOut/drug_shop-512.png")).getImage().getScaledInstance(120,120, Image.SCALE_SMOOTH)));
+		JPanel panel1=new JPanel();
+		panel1.setBackground(Color.RED);
+		panel1.setBorder(null);
+		panel1.setPreferredSize(new Dimension(200,50));
+		contentPane.add(panel1, BorderLayout.WEST);
+		panel1.setLayout(null);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("INVENTORY");
-		//lblNewLabel_1_1.setIcon(new ImageIcon(Main.class.getResource("/MedOut/253ad59b.png")));
-		lblNewLabel_1_1.setIcon(new ImageIcon(new ImageIcon(Main.class.getResource("/MedOut/253ad59b.png")).getImage().getScaledInstance(32, 32, Image.SCALE_DEFAULT)));
-		lblNewLabel_1_1.setForeground(Color.DARK_GRAY);
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblNewLabel_1_1.setBackground(SystemColor.menu);
-		panel_1_1.add(lblNewLabel_1_1);
-		panel_1_1.addMouseListener(new MouseAdapter() {
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(0, 0, 200, 300);
+		panel_1.setBorder(null);
+		panel_1.setBackground(Color.RED);
+		panel_1.setPreferredSize(new Dimension(200, 300));
+		panel1.add(panel_1);
+		panel_1.setLayout(new GridLayout(6, 1, 0, 0));
+		
+		JPanel SalesOpt = new JPanel();
+		SalesOpt.setBackground(Color.RED);
+		panel_1.add(SalesOpt);
+		SalesOpt.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JLabel lblNewLabel = new JLabel("SALES");
+		lblNewLabel.setForeground(Color.WHITE);
+		//lblNewLabel.setIcon(new ImageIcon(Main.class.getResource("/MedOut/cvs-health-payor-solutions-measuring-success-main-image_0.png")));
+		lblNewLabel.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/MedOut/cvs-health-payor-solutions-measuring-success-main-image_0.png")).getImage().getScaledInstance(20,20, Image.SCALE_SMOOTH)));
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 20));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		SalesOpt.add(lblNewLabel);
+		
+		JPanel InventoryOpt = new JPanel();
+		InventoryOpt.setBackground(Color.RED);
+		panel_1.add(InventoryOpt);
+		InventoryOpt.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JLabel lblNewLabel_1 = new JLabel("INVENTORY");
+		//lblNewLabel_1.setIcon(new ImageIcon(Main.class.getResource("/MedOut/6639703_preview.png")));
+		lblNewLabel_1.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/MedOut/6639703_preview.png")).getImage().getScaledInstance(20,20, Image.SCALE_SMOOTH)));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setForeground(Color.WHITE);
+		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 20));
+		InventoryOpt.add(lblNewLabel_1);
+		
+		JPanel CompanyOpt = new JPanel();
+		CompanyOpt.setBackground(Color.RED);
+		panel_1.add(CompanyOpt);
+		CompanyOpt.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JLabel lblNewLabel_2 = new JLabel("COMPANIES");
+		//lblNewLabel_2.setIcon(new ImageIcon(Main.class.getResource("/MedOut/building-icon-company-building-png-png-256_256.png")));
+		lblNewLabel_2.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/MedOut/building-icon-company-building-png-png-256_256.png")).getImage().getScaledInstance(20,20, Image.SCALE_SMOOTH)));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setForeground(Color.WHITE);
+		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 20));
+		CompanyOpt.add(lblNewLabel_2);
+		
+		JPanel UsersOpt = new JPanel();
+		UsersOpt.setBackground(Color.RED);
+		panel_1.add(UsersOpt);
+		UsersOpt.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JLabel lblNewLabel_3 = new JLabel("USERS");
+		//lblNewLabel_3.setIcon(new ImageIcon(Main.class.getResource("/MedOut/multy-user.png")));
+		lblNewLabel_3.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/MedOut/multy-user.png")).getImage().getScaledInstance(20,20, Image.SCALE_SMOOTH)));
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setForeground(Color.WHITE);
+		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 20));
+		UsersOpt.add(lblNewLabel_3);
+		
+		JPanel SettingsOpt = new JPanel();
+		SettingsOpt.setBackground(Color.RED);
+		panel_1.add(SettingsOpt);
+		SettingsOpt.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JLabel lblNewLabel_4 = new JLabel("SETTINGS");
+		//lblNewLabel_4.setIcon(new ImageIcon(Main.class.getResource("/MedOut/settings.png")));
+		lblNewLabel_4.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/MedOut/settings.png")).getImage().getScaledInstance(20,20, Image.SCALE_SMOOTH)));
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4.setForeground(Color.WHITE);
+		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 20));
+		SettingsOpt.add(lblNewLabel_4);
+		
+		JPanel Logout = new JPanel();
+		Logout.setBackground(Color.RED);
+		panel_1.add(Logout);
+		Logout.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JLabel lblNewLabel_5 = new JLabel("LOGOUT");
+		//lblNewLabel_5.setIcon(new ImageIcon(Main.class.getResource("/MedOut/25706.png")));
+		lblNewLabel_5.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/MedOut/25706.png")).getImage().getScaledInstance(20,20, Image.SCALE_SMOOTH)));
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_5.setForeground(Color.WHITE);
+		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 20));
+		Logout.add(lblNewLabel_5);
+		
+		
+		
+		SalesOpt.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SalesPanel sp=new SalesPanel();
+				contentPane.add(sp, BorderLayout.CENTER);
+				sp.setVisible(false);
+				sp.setVisible(true);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				SalesOpt.setBackground(new Color(220, 0, 0));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				SalesOpt.setBackground(Color.RED);
+			}
+		});
+		InventoryOpt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				panel_1_1.setBackground(Color.DARK_GRAY);
+				InventoryOpt.setBackground(new Color(220, 0, 0));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				panel_1_1.setBackground(Color.LIGHT_GRAY);
+				InventoryOpt.setBackground(Color.RED);
 			}
 		});
-		
-		JPanel panel_1_2 = new JPanel();
-		panel_1_2.setBackground(Color.LIGHT_GRAY);
-		panel_1_2.setBounds(0, 258, 302, 47);
-		panel.add(panel_1_2);
-		
-		JLabel lblNewLabel_1_2 = new JLabel("COMPANIES");
-		lblNewLabel_1_2.setIcon(new ImageIcon(Main.class.getResource("/MedOut/companies-icon.png")));
-		lblNewLabel_1_2.setForeground(Color.DARK_GRAY);
-		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblNewLabel_1_2.setBackground(SystemColor.menu);
-		panel_1_2.add(lblNewLabel_1_2);
-		panel_1_2.addMouseListener(new MouseAdapter() {
+		UsersOpt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				panel_1_2.setBackground(Color.DARK_GRAY);
+				UsersOpt.setBackground(new Color(220, 0, 0));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				panel_1_2.setBackground(Color.LIGHT_GRAY);
+				UsersOpt.setBackground(Color.RED);
 			}
 		});
-		
-		
-		JPanel panel_1_3 = new JPanel();
-		panel_1_3.setBackground(Color.LIGHT_GRAY);
-		panel_1_3.setBounds(0, 302, 302, 47);
-		panel.add(panel_1_3);
-		
-		JLabel lblNewLabel_1_3 = new JLabel("USERS");
-		lblNewLabel_1_3.setIcon(new ImageIcon(Main.class.getResource("/MedOut/Actions-list-add-user-icon.png")));
-		lblNewLabel_1_3.setForeground(Color.DARK_GRAY);
-		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblNewLabel_1_3.setBackground(SystemColor.menu);
-		panel_1_3.add(lblNewLabel_1_3);
-		panel_1_3.addMouseListener(new MouseAdapter() {
+		SettingsOpt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				panel_1_3.setBackground(Color.DARK_GRAY);
+				SettingsOpt.setBackground(new Color(220, 0, 0));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				panel_1_3.setBackground(Color.LIGHT_GRAY);
+				SettingsOpt.setBackground(Color.RED);
 			}
 		});
-		
-		JPanel panel_1_4 = new JPanel();
-		panel_1_4.setBackground(Color.LIGHT_GRAY);
-		panel_1_4.setBounds(0, 348, 302, 47);
-		panel.add(panel_1_4);
-		
-		JLabel lblNewLabel_1_4 = new JLabel("SETTINGS");
-		lblNewLabel_1_4.setIcon(new ImageIcon(Main.class.getResource("/MedOut/Apps-system-software-update-icon.png")));
-		lblNewLabel_1_4.setForeground(Color.DARK_GRAY);
-		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblNewLabel_1_4.setBackground(SystemColor.menu);
-		panel_1_4.add(lblNewLabel_1_4);
-		panel_1_4.addMouseListener(new MouseAdapter() {
+		Logout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				panel_1_4.setBackground(Color.DARK_GRAY);
+				Logout.setBackground(new Color(220, 0, 0));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				panel_1_4.setBackground(Color.LIGHT_GRAY);
+				Logout.setBackground(Color.RED);
 			}
 		});
-		
-		
-		JPanel panel_1_4_1 = new JPanel();
-		panel_1_4_1.setBackground(Color.LIGHT_GRAY);
-		panel_1_4_1.setBounds(0, 396, 302, 47);
-		panel.add(panel_1_4_1);
-		
-		JLabel lblNewLabel_1_4_1 = new JLabel("SIGN OUT");
-		lblNewLabel_1_4_1.setIcon(new ImageIcon(Main.class.getResource("/MedOut/Apps-session-logout-icon.png")));
-		lblNewLabel_1_4_1.setForeground(Color.DARK_GRAY);
-		lblNewLabel_1_4_1.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblNewLabel_1_4_1.setBackground(SystemColor.menu);
-		panel_1_4_1.add(lblNewLabel_1_4_1);
-		panel_1_4_1.addMouseListener(new MouseAdapter() {
+		CompanyOpt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				panel_1_4_1.setBackground(Color.DARK_GRAY);
+				CompanyOpt.setBackground(new Color(220, 0, 0));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				panel_1_4_1.setBackground(Color.LIGHT_GRAY);
+				CompanyOpt.setBackground(Color.RED);
 			}
 		});
-		
 	}
+
 }

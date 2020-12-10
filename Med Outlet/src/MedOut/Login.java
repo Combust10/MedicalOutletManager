@@ -126,6 +126,7 @@ public class Login extends JFrame {
 				if(rs.next())
 				{
 						lblNewLabel_4.setText("Success");
+						Main1.main(null);
 					}
 				else
 				{lblNewLabel_4.setText("Invalid Credentials");}
