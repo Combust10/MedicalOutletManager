@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.GridLayout;
 import java.awt.Font;
@@ -244,6 +245,9 @@ public class Main extends JFrame {
 		Logout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				int result=JOptionPane.showConfirmDialog(null,"Are you sure you want to logout?","Logout",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+				if(result==JOptionPane.YES_OPTION)
+					System.exit(0);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {

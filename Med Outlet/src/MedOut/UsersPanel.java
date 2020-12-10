@@ -20,9 +20,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+
+import net.proteanit.sql.DbUtils;
+
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -76,6 +82,13 @@ public class UsersPanel extends JPanel {
 		panel_2.setBackground(Color.WHITE);
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(Color.PINK);
+		panel_3.setLayout(new BorderLayout());
+		JScrollPane scrollPane = new JScrollPane();
+		panel_3.add(scrollPane,BorderLayout.CENTER);
+		JTable table = new JTable();
+		table.setBackground(Color.WHITE);
+		scrollPane.setViewportView(table);
+		
 		add(panel_2,BorderLayout.CENTER);
 		panel_2.setLayout(null);
 		
@@ -204,6 +217,16 @@ public class UsersPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				add(panel_3,BorderLayout.CENTER);
+				try {
+					Connection dbc=DriverManager.getConnection("jdbc:sqlite::resource:MedOut/Database.db");
+					PreparedStatement prep=dbc.prepareStatement("SELECT * FROM login");
+					ResultSet r=prep.executeQuery();
+					table.setModel(DbUtils.resultSetToTableModel(r));
+					dbc.close();
+					}catch(SQLException ex)
+				{
+						JOptionPane.showMessageDialog(null,"SQL Error connecting to database","Error",JOptionPane.ERROR_MESSAGE);		
+				}
 				panel_2.setVisible(false);
 				panel_3.setVisible(true);
 			}
