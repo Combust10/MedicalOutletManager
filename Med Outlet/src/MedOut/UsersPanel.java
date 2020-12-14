@@ -37,6 +37,7 @@ public class UsersPanel extends JPanel {
 	private JTextField textField;
 	private JTextField textField_2;
 	private JPasswordField passwordField;
+	UserPanel_2 up=new UserPanel_2();
 
 	/**
 	 * Create the panel.
@@ -51,6 +52,7 @@ public class UsersPanel extends JPanel {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblUsers = new JLabel("USERS");
+		lblUsers.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/MedOut/multy-user.png")).getImage().getScaledInstance(20,20, Image.SCALE_SMOOTH)));
 		lblUsers.setVerticalAlignment(SwingConstants.TOP);
 		lblUsers.setForeground(Color.RED);
 		lblUsers.setFont(new Font("Arial", Font.BOLD, 30));
@@ -83,12 +85,19 @@ public class UsersPanel extends JPanel {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(Color.PINK);
 		panel_3.setLayout(new BorderLayout());
-		JScrollPane scrollPane = new JScrollPane();
-		panel_3.add(scrollPane,BorderLayout.CENTER);
-		JTable table = new JTable();
-		table.setBackground(Color.WHITE);
-		scrollPane.setViewportView(table);
-		
+		JPanel panel_3_1=new JPanel();
+		panel_3_1.setLayout(null);
+		panel_3_1.setBackground(Color.WHITE);
+		panel_3.add(panel_3_1,BorderLayout.CENTER);
+		JComboBox<String> unames=new JComboBox<>();
+		unames.setPreferredSize(new Dimension(109,22));
+		JLabel userlbl=new JLabel("Select User:");
+		userlbl.setBackground(Color.WHITE);
+		userlbl.setBounds(29, 45, 73, 14);
+		panel_3_1.add(userlbl);
+		JButton btn = new JButton("DELETE");
+		btn.setBounds(37, 106, 89, 23);
+		panel_3_1.add(btn);	
 		add(panel_2,BorderLayout.CENTER);
 		panel_2.setLayout(null);
 		
@@ -121,10 +130,10 @@ public class UsersPanel extends JPanel {
 		textField_2.setColumns(10);
 		textField_2.setBounds(178, 147, 145, 20);
 		panel_2.add(textField_2);
-		//String[] Ques={"1.What primary school did you attend?","2.In what city does your nearest sibling live?","3.What was your childhood nickname?","4.What was your favorite sport in high school?","5.What is your mother's maiden name?"};
-		//JComboBox<String> comboBox = new JComboBox<>(Ques);
-		//comboBox.setBounds(178, 109, 245, 22);
-		//panel_2.add(comboBox);
+		String[] Ques={"1.What primary school did you attend?","2.In what city does your nearest sibling live?","3.What was your childhood nickname?","4.What was your favorite sport in high school?","5.What is your mother's maiden name?"};
+		JComboBox<String> comboBox = new JComboBox<>(Ques);
+		comboBox.setBounds(178, 109, 285, 22);
+		panel_2.add(comboBox);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(178, 68, 145, 20);
@@ -177,7 +186,6 @@ public class UsersPanel extends JPanel {
 				if(flag==1)
 				{
 					try {
-						System.out.println("hi");
 						String password = String.valueOf(passwordField.getPassword());
 						Connection con=DriverManager.getConnection("jdbc:sqlite::resource:MedOut/Database.db");
 						String query="INSERT INTO login values(?,?,?);";
@@ -218,11 +226,17 @@ public class UsersPanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				add(panel_3,BorderLayout.CENTER);
 				try {
+					unames.removeAllItems();
 					Connection dbc=DriverManager.getConnection("jdbc:sqlite::resource:MedOut/Database.db");
 					PreparedStatement prep=dbc.prepareStatement("SELECT * FROM login");
 					ResultSet r=prep.executeQuery();
-					table.setModel(DbUtils.resultSetToTableModel(r));
-					dbc.close();
+					while(r.next())
+					{
+						unames.addItem(r.getString("username"));
+					}
+					unames.setBounds(132, 41, 185, 22);
+					panel_3_1.add(unames);
+					
 					}catch(SQLException ex)
 				{
 						JOptionPane.showMessageDialog(null,"SQL Error connecting to database","Error",JOptionPane.ERROR_MESSAGE);		
@@ -237,6 +251,34 @@ public class UsersPanel extends JPanel {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblNewLabel_2.setBackground(Color.PINK);
+			}
+		});
+		btn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Connection con;
+				try {
+					if(String.valueOf(unames.getSelectedItem()).equals("admin"))
+					{
+						JOptionPane.showMessageDialog(null,"Cannot delete admin account","Error",JOptionPane.ERROR_MESSAGE);
+					}
+					else {
+						int result=JOptionPane.showConfirmDialog(null,"Are you sure you want to delete the user?","Delete",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+						if(result==JOptionPane.YES_OPTION)
+							{
+					con = DriverManager.getConnection("jdbc:sqlite::resource:MedOut/Database.db");				
+					String str="DELETE FROM login WHERE username=?";
+					PreparedStatement pst=con.prepareStatement(str);
+
+					pst.setString(1,String.valueOf(unames.getSelectedItem()));
+					pst.executeUpdate();
+					JOptionPane.showMessageDialog(null,"User deleted!","Success",JOptionPane.INFORMATION_MESSAGE);
+							}
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 

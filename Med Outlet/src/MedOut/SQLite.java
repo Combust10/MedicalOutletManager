@@ -30,9 +30,6 @@ public class SQLite {
 				prep4.setString(2, "admin");
 				prep4.setString(3, "password");
 				prep4.execute();
-				prep4.setString(2, "test2");
-				prep4.setString(3, "pass");
-				prep4.execute();
 				con.close();
 		}
 	}

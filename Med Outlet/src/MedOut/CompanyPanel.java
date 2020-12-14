@@ -43,7 +43,7 @@ public class CompanyPanel extends JPanel {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel = new JLabel("COMPANIES");
-		lblNewLabel.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/MedOut/6639703_preview.png")).getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
+		lblNewLabel.setIcon(new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/MedOut/building-icon-company-building-png-png-256_256.png")).getImage().getScaledInstance(30,30, Image.SCALE_SMOOTH)));
 		lblNewLabel.setForeground(Color.RED);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
 		panel.add(lblNewLabel,BorderLayout.WEST);
@@ -116,8 +116,9 @@ public class CompanyPanel extends JPanel {
 		gbc_scrollPane.gridy = 3;
 		panel_2.add(scrollPane, gbc_scrollPane);
 		
-		JTextArea textArea = new JTextArea();
-		scrollPane.setViewportView(textArea);
+		JTextArea txtrRepresentativeNameTelephone = new JTextArea();
+		txtrRepresentativeNameTelephone.setText("REPRESENTATIVE NAME:\r\nTELEPHONE NUMBER:\r\nPRODUCTS:\r\nGENERAL COMMENT:\r\nADDITIONAL NOTES:\r\n");
+		scrollPane.setViewportView(txtrRepresentativeNameTelephone);
 		
 		JButton btnNewButton = new JButton("Add");
 		btnNewButton.addActionListener(new ActionListener() {

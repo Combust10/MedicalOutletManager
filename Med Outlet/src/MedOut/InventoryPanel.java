@@ -77,7 +77,7 @@ public class InventoryPanel extends JPanel {
 		add(panel_2,BorderLayout.CENTER);
 		panel_2.setLayout(null);
 		
-		JLabel lblNewLabel_3 = new JLabel("Medicine Name:");
+		JLabel lblNewLabel_3 = new JLabel("Product Name:");
 		lblNewLabel_3.setBounds(60, 48, 104, 19);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel_2.add(lblNewLabel_3);
