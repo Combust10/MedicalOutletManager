@@ -8,10 +8,17 @@ import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
@@ -23,10 +30,13 @@ import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class InventoryPanel extends JPanel {
 	private JTextField textField;
 	private JTextField textField_1;
+	private JTextField textField_2;
 
 	/**
 	 * Create the panel.
@@ -73,6 +83,7 @@ public class InventoryPanel extends JPanel {
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.WHITE);
 		JPanel panel_3 = new JPanel();
+		panel_3.setLayout(new BorderLayout(0,0));
 		panel_3.setBackground(Color.PINK);
 		add(panel_2,BorderLayout.CENTER);
 		panel_2.setLayout(null);
@@ -99,6 +110,8 @@ public class InventoryPanel extends JPanel {
 		textField_1.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Add");
+		JScrollPane jsp=new JScrollPane();
+
 		btnNewButton.setBounds(198, 159, 60, 23);
 		panel_2.add(btnNewButton);
 		
@@ -106,6 +119,16 @@ public class InventoryPanel extends JPanel {
 		lblNewLabel_5.setBounds(0, 0, 0, 0);
 		lblNewLabel_5.setForeground(Color.RED);
 		panel_2.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("Price:");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_6.setBounds(60, 78, 46, 14);
+		panel_2.add(lblNewLabel_6);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(169, 78, 216, 20);
+		panel_2.add(textField_2);
+		textField_2.setColumns(10);
 		
 		lblNewLabel_1.addMouseListener(new MouseAdapter() {
 			@Override
@@ -129,6 +152,9 @@ public class InventoryPanel extends JPanel {
 				add(panel_3,BorderLayout.CENTER);
 				panel_2.setVisible(false);
 				panel_3.setVisible(true);
+				InventoryPanel_1 ip=new InventoryPanel_1();
+				jsp.setViewportView(ip);
+				panel_3.add(jsp,BorderLayout.CENTER);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -139,6 +165,39 @@ public class InventoryPanel extends JPanel {
 				lblNewLabel_2.setBackground(Color.PINK);
 			}
 		});
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(textField.getText().isEmpty()||textField_1.getText().isEmpty()||textField_2.getText().isEmpty())
+				{
+					JOptionPane.showMessageDialog(null,"Please enter all the required details","Error",JOptionPane.ERROR_MESSAGE);
+				}
+				else{
+				
+					try {
+						Connection con=DriverManager.getConnection("jdbc:sqlite::resource:MedOut/Database.db");
+						String sql="SELECT Product FROM stock WHERE Product=?";
+						PreparedStatement ps=con.prepareStatement(sql);
+						ps.setString(1,textField.getText());
+						ResultSet rs=ps.executeQuery();
+						if(rs.next())
+						{
+								JOptionPane.showMessageDialog(null,"This product has already been added","Error",JOptionPane.WARNING_MESSAGE);
+						}
+						else {
+						String query="INSERT INTO stock values(?,?,?,?);";
+						PreparedStatement pst=con.prepareStatement(query);
+						pst.setString(2,textField.getText());	
+						pst.setString(3,textField_1.getText());
+						pst.setString(4,textField_2.getText());
+						pst.execute();
+						JOptionPane.showMessageDialog(null,"New Product added!","Success",JOptionPane.INFORMATION_MESSAGE);
+						}con.close();
+						} catch (SQLException e1) {
+						JOptionPane.showMessageDialog(null,"SQL Error connecting to database","Error",JOptionPane.ERROR_MESSAGE);
+						e1.printStackTrace();
+					}
+			}	
+				}
+		});
 	}
-
 }

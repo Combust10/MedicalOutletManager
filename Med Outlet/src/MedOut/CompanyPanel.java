@@ -8,10 +8,16 @@ import java.awt.FlowLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
@@ -25,9 +31,12 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class CompanyPanel extends JPanel {
 	private JTextField textField;
+
 
 	/**
 	 * Create the panel.
@@ -74,6 +83,7 @@ public class CompanyPanel extends JPanel {
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(Color.WHITE);
 		JPanel panel_3 = new JPanel();
+		panel_3.setLayout(new BorderLayout(0,0));
 		panel_3.setBackground(Color.PINK);
 		add(panel_2,BorderLayout.CENTER);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
@@ -118,6 +128,20 @@ public class CompanyPanel extends JPanel {
 		
 		JTextArea txtrRepresentativeNameTelephone = new JTextArea();
 		txtrRepresentativeNameTelephone.setText("REPRESENTATIVE NAME:\r\nTELEPHONE NUMBER:\r\nPRODUCTS:\r\nGENERAL COMMENT:\r\nADDITIONAL NOTES:\r\n");
+		txtrRepresentativeNameTelephone.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+			    int max = 200;
+			    if(txtrRepresentativeNameTelephone.getText().length() > max+1) {
+			        e.consume();
+			        String shortened = txtrRepresentativeNameTelephone.getText().substring(0, max);
+			        txtrRepresentativeNameTelephone.setText(shortened);
+			    }else if(txtrRepresentativeNameTelephone.getText().length() > max) {
+			        e.consume();
+			    }
+			}
+		}
+			);
 		scrollPane.setViewportView(txtrRepresentativeNameTelephone);
 		
 		JButton btnNewButton = new JButton("Add");
@@ -152,7 +176,9 @@ public class CompanyPanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 				add(panel_3,BorderLayout.CENTER);
 				panel_2.setVisible(false);
+				CompanyPanel_1 cp1=new CompanyPanel_1();
 				panel_3.setVisible(true);
+				panel_3.add(cp1,BorderLayout.CENTER);
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -161,6 +187,31 @@ public class CompanyPanel extends JPanel {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblNewLabel_2.setBackground(Color.PINK);
+			}
+		});
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Connection dbc=DriverManager.getConnection("jdbc:sqlite::resource:MedOut/Database.db");
+					if(textField.getText().isEmpty()||txtrRepresentativeNameTelephone.getText().isEmpty())
+					{
+						JOptionPane.showMessageDialog(null,"Please enter all the required details","Error",JOptionPane.ERROR_MESSAGE);
+					}
+					else {
+						String sql="INSERT INTO company values(?,?,?)";
+						PreparedStatement pst=dbc.prepareStatement(sql);
+						pst.setString(2,textField.getText());
+						pst.setString(3,txtrRepresentativeNameTelephone.getText());
+						pst.execute();
+						JOptionPane.showMessageDialog(null,"New Company added!","Success",JOptionPane.INFORMATION_MESSAGE);
+					}
+					dbc.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 	}

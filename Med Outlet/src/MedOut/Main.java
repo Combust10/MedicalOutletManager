@@ -44,6 +44,7 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/MedOut/drug_shop-512.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 696, 458);
@@ -165,6 +166,12 @@ public class Main extends JFrame {
 		lblNewLabel_5.setForeground(Color.WHITE);
 		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 20));
 		Logout.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_7 = new JLabel("Select an option to get started");
+		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_7.setForeground(Color.WHITE);
+		contentPane.add(lblNewLabel_7, BorderLayout.CENTER);
 		InventoryPanel ip=new InventoryPanel();
 		CompanyPanel cp=new CompanyPanel();
 		SalesPanel sp=new SalesPanel();
@@ -276,6 +283,12 @@ public class Main extends JFrame {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				CompanyOpt.setBackground(Color.RED);
+			}
+		});
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				lblNewLabel_7.setVisible(false);
 			}
 		});
 	}

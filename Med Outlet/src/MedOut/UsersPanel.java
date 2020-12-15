@@ -188,10 +188,12 @@ public class UsersPanel extends JPanel {
 					try {
 						String password = String.valueOf(passwordField.getPassword());
 						Connection con=DriverManager.getConnection("jdbc:sqlite::resource:MedOut/Database.db");
-						String query="INSERT INTO login values(?,?,?);";
+						String query="INSERT INTO login values(?,?,?,?,?);";
 						PreparedStatement pst=con.prepareStatement(query);
 						pst.setString(2,textField.getText());	
 						pst.setString(3,password);
+						pst.setString(4,String.valueOf(comboBox.getSelectedItem()));
+						pst.setString(5, textField_2.getText());
 						pst.execute();
 						JOptionPane.showMessageDialog(null,"New User created!","Success",JOptionPane.INFORMATION_MESSAGE);
 						con.close();
