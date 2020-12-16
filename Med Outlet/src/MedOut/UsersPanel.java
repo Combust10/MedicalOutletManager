@@ -96,10 +96,21 @@ public class UsersPanel extends JPanel {
 		userlbl.setBounds(29, 45, 73, 14);
 		panel_3_1.add(userlbl);
 		JButton btn = new JButton("DELETE");
-		btn.setBounds(37, 106, 89, 23);
+		btn.setBounds(37, 86, 89, 23);
 		panel_3_1.add(btn);	
+		JTextField adminpass=new JTextField();
+		adminpass.setBounds(180, 130, 200, 20);
+		panel_3_1.add(adminpass);
+		JLabel cadmin=new JLabel("Change admin password:");
+		cadmin.setBackground(Color.WHITE);
+		cadmin.setBounds(29, 130, 200, 14);
+		panel_3_1.add(cadmin);
 		add(panel_2,BorderLayout.CENTER);
 		panel_2.setLayout(null);
+		
+		JButton btn1 = new JButton("Change");
+		btn1.setBounds(37, 170, 100, 23);
+		panel_3_1.add(btn1);
 		
 		JLabel lblNewLabel = new JLabel("Username:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -275,6 +286,35 @@ public class UsersPanel extends JPanel {
 					pst.setString(1,String.valueOf(unames.getSelectedItem()));
 					pst.executeUpdate();
 					JOptionPane.showMessageDialog(null,"User deleted!","Success",JOptionPane.INFORMATION_MESSAGE);
+					con.close();
+							}
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		btn1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Connection con;
+				try {
+					if(adminpass.getText().length()<8)
+					{
+						JOptionPane.showMessageDialog(null,"Password must be atleast 8  characters","Error",JOptionPane.ERROR_MESSAGE);
+					}
+					else {
+						int result=JOptionPane.showConfirmDialog(null,"Are you sure you want to change the password?","Are you sure",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+						if(result==JOptionPane.YES_OPTION)
+							{
+					con = DriverManager.getConnection("jdbc:sqlite::resource:MedOut/Database.db");				
+					String str="UPDATE login SET password=? WHERE username=?";
+					PreparedStatement pst=con.prepareStatement(str);
+					pst.setString(1,adminpass.getText());
+					pst.setString(2,"admin");
+					pst.executeUpdate();
+					JOptionPane.showMessageDialog(null,"Password changed!","Success",JOptionPane.INFORMATION_MESSAGE);
 							}
 					}
 				} catch (SQLException e1) {
