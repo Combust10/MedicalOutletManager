@@ -26,12 +26,13 @@ import javax.swing.SwingConstants;
 import javax.swing.JLayeredPane;
 import java.awt.Toolkit;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 public class Login extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
 	private JTextField textField_1;
-
 	/**
 	 * Launch the application.
 	 */
@@ -48,6 +49,7 @@ public class Login extends JFrame {
 				}
 			}
 		});
+
 	}
 
 	/**
@@ -60,7 +62,8 @@ public class Login extends JFrame {
 	private final JLabel lblNewLabel_3 = new JLabel("New label");
 	public Login(int a) {}
 	public Login() throws ClassNotFoundException, SQLException {
-	SQLite.getConnection();
+	//SQLite.getConnection();
+		String name=null;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/MedOut/check.png")));
 		setForeground(Color.WHITE);
 		logcon=DriverManager.getConnection("jdbc:sqlite::resource:MedOut/Database.db");
@@ -78,6 +81,17 @@ public class Login extends JFrame {
 		panel.setAlignmentX(0.0f);
 		contentPane.add(panel);
 		panel.setLayout(null);
+		
+		JLabel lblNewLabel_5 = new JLabel("Forgot/Change Password");
+		lblNewLabel_5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				LoginReset.main(null);
+			}
+		});
+		lblNewLabel_5.setForeground(Color.BLUE);
+		lblNewLabel_5.setBounds(243, 207, 145, 14);
+		panel.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setForeground(Color.RED);
@@ -126,8 +140,10 @@ public class Login extends JFrame {
 				ResultSet rs=pst.executeQuery();
 				if(rs.next())
 				{
+						String name=rs.getString("username");
 						lblNewLabel_4.setText("Success");
-						Main.main(null);
+						MainMenu.main(name);
+						dispose();
 					}
 				else
 				{lblNewLabel_4.setText("Invalid Credentials");}

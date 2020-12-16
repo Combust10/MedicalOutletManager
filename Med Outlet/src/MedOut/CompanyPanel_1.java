@@ -149,6 +149,7 @@ public class CompanyPanel_1 extends JPanel {
 				PreparedStatement prep=dbc.prepareStatement("SELECT * FROM company WHERE compname=?");
 				prep.setString(1,String.valueOf(comboBox.getSelectedItem()));
 				ResultSet r=prep.executeQuery();
+				if(r.next())
 				textArea.setText(r.getString("compdets"));
 				dbc.close();
 				} catch (SQLException e) {
