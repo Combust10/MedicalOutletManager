@@ -51,7 +51,7 @@ public class LoginReset extends JFrame {
 	 */
 	public LoginReset() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(LoginReset.class.getResource("/MedOut/check.png")));
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 517, 300);
 		setResizable(false);
 		contentPane = new JPanel();

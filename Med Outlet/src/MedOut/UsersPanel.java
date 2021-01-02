@@ -18,6 +18,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -37,7 +38,6 @@ public class UsersPanel extends JPanel {
 	private JTextField textField;
 	private JTextField textField_2;
 	private JPasswordField passwordField;
-	UserPanel_2 up=new UserPanel_2();
 
 	/**
 	 * Create the panel.
@@ -112,6 +112,10 @@ public class UsersPanel extends JPanel {
 		btn1.setBounds(37, 170, 100, 23);
 		panel_3_1.add(btn1);
 		
+		JButton btn2 = new JButton("Alternative admin passwords");
+		btn2.setBounds(37, 210, 100, 23);
+		panel_3_1.add(btn2);
+		
 		JLabel lblNewLabel = new JLabel("Username:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel.setBounds(34, 27, 105, 19);
@@ -163,6 +167,7 @@ public class UsersPanel extends JPanel {
 		panel_2.add(lblNewLabel_4);
 		
 		JButton btnNewButton = new JButton("Create Account");
+		btn2.setVisible(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int flag=1;
@@ -323,6 +328,14 @@ public class UsersPanel extends JPanel {
 				}
 			}
 		});
+		btn2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Codes.main(null);
+			}
+		});
 
 	}
+	  
+	  
 }

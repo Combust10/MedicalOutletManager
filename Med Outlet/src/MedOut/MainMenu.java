@@ -19,6 +19,11 @@ import javax.swing.SwingConstants;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class MainMenu extends JFrame {
 	
@@ -41,16 +46,41 @@ static String name;
 			}
 		});
 	}
+	static String getname()
+	{
+		return name;
+	}
 
-	/**
+	 /**
 	 * Create the frame.
 	 */
 
 	public MainMenu() {
+		setTitle("Medical Outlet Management System");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MainMenu.class.getResource("/MedOut/drug_shop-512.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 696, 458);
-
+		Connection dbc;
+		
+		try {
+			dbc = DriverManager.getConnection("jdbc:sqlite::resource:MedOut/Database.db");
+			PreparedStatement prep=dbc.prepareStatement("SELECT fs FROM settings");
+			ResultSet res=prep.executeQuery();
+			while(res.next())
+			{
+				if(res.getInt("fs")==1)
+				{
+					setExtendedState(JFrame.MAXIMIZED_BOTH);
+					setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					setUndecorated(true);
+					setVisible(true);
+				}
+					
+			}
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.RED);
@@ -182,18 +212,20 @@ static String name;
 		CompanyPanel cp=new CompanyPanel();
 		SalesPanel sp=new SalesPanel();
 		UsersPanel up=new UsersPanel();
+		Settings s=new Settings();
 		if(!(name.equals("admin")))
 			UsersOpt.disable();
 		
 		SalesOpt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				lblNewLabel_7.setVisible(false);
 				contentPane.add(sp, BorderLayout.CENTER);
 				sp.setVisible(false);
 				ip.setVisible(false);
 				cp.setVisible(false);
 				up.setVisible(false);
+				s.setVisible(false);
 				sp.setVisible(true);
 			}
 			@Override
@@ -208,12 +240,13 @@ static String name;
 		InventoryOpt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				lblNewLabel_7.setVisible(false);
 				contentPane.add(ip,BorderLayout.CENTER);
 				cp.setVisible(false);
 				sp.setVisible(false);
 				up.setVisible(false);
 				ip.setVisible(false);
+				s.setVisible(false);
 				ip.setVisible(true);
 			}
 			@Override
@@ -228,14 +261,17 @@ static String name;
 		UsersOpt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 				if(!(name.equals("admin")))
 					JOptionPane.showMessageDialog(null,"Only admin can access this option","Access Restricted",JOptionPane.INFORMATION_MESSAGE);
 				else {
+					lblNewLabel_7.setVisible(false);
 				contentPane.add(up,BorderLayout.CENTER);
 				cp.setVisible(false);
 				sp.setVisible(false);
 				ip.setVisible(false);
 				up.setVisible(false);
+				s.setVisible(false);
 				up.setVisible(true);
 				}}
 			@Override
@@ -250,7 +286,19 @@ static String name;
 		SettingsOpt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				if(!(name.equals("admin")))
+					JOptionPane.showMessageDialog(null,"Only admin can access this option","Access Restricted",JOptionPane.INFORMATION_MESSAGE);
+				else {
+					lblNewLabel_7.setVisible(false);
+				cp.setVisible(false);
+				sp.setVisible(false);
+				ip.setVisible(false);
+				up.setVisible(false);
+				s.setVisible(true);
+				contentPane.add(s,BorderLayout.CENTER);
 			}
+				}
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				SettingsOpt.setBackground(new Color(220, 0, 0));
@@ -280,12 +328,13 @@ static String name;
 		CompanyOpt.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				lblNewLabel_7.setVisible(false);
 				contentPane.add(cp,BorderLayout.CENTER);
 				ip.setVisible(false);
 				up.setVisible(false);
 				sp.setVisible(false);
 				cp.setVisible(false);
+				s.setVisible(false);
 				cp.setVisible(true);
 			}
 			@Override

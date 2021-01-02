@@ -62,6 +62,7 @@ public class Login extends JFrame {
 	private final JLabel lblNewLabel_3 = new JLabel("New label");
 	public Login(int a) {}
 	public Login() throws ClassNotFoundException, SQLException {
+		setTitle("Login");
 	//SQLite.getConnection();
 		String name=null;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Login.class.getResource("/MedOut/check.png")));

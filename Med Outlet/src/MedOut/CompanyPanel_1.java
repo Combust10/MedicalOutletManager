@@ -126,7 +126,7 @@ public class CompanyPanel_1 extends JPanel {
 					pst.setString(1,String.valueOf(comboBox.getSelectedItem()));
 					pst.executeUpdate();
 					JOptionPane.showMessageDialog(null,"Company deleted!","Success",JOptionPane.INFORMATION_MESSAGE);
-							
+					con.close();
 					}
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
