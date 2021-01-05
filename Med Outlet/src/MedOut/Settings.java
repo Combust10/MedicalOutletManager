@@ -124,7 +124,7 @@ public class Settings extends JPanel {
 		try {
 			dbc = DriverManager.getConnection("jdbc:sqlite::resource:MedOut/Database.db");
 		
-		PreparedStatement prep=dbc.prepareStatement("SELECT fs FROM settings");
+		PreparedStatement prep=dbc.prepareStatement("SELECT fs,name,line1,line2 FROM settings");
 		ResultSet res=prep.executeQuery();
 		while(res.next())
 		{
@@ -132,7 +132,10 @@ public class Settings extends JPanel {
 			chckbxNewCheckBox.setSelected(true);
 			else
 			chckbxNewCheckBox.setSelected(false);
-				
+			
+			textField.setText(res.getString("name"));
+			textField_1.setText(res.getString("line1"));
+			textField_2.setText(res.getString("line2"));
 		}
 		dbc.close();
 		} catch (SQLException e) {
