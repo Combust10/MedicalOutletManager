@@ -97,7 +97,7 @@ public class LoginReset extends JFrame {
 		
 		JLabel lblNewLabel_5 = new JLabel("");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblNewLabel_5.setBounds(193, 88, 218, 14);
+		lblNewLabel_5.setBounds(193, 88, 298, 14);
 		contentPane.add(lblNewLabel_5);
 		
 		textField_1 = new JTextField();
@@ -137,6 +137,7 @@ public class LoginReset extends JFrame {
 							lblNewLabel_6.setText("User does not exist");
 					}
 					else {
+						lblNewLabel_6.setText("");
 				sql="SELECT sq from login WHERE username=?";
 				pst=dbc.prepareStatement(sql);
 				pst.setString(1, textField.getText());
